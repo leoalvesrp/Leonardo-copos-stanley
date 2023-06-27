@@ -1,7 +1,7 @@
 import Image from'next/image'
 import copo1 from'../../public/copos/copo-1.png'
 import copo2 from'../../public/copos/copo-2.png'
-import copo3 from'../../public/copos/copo-3.webp'
+import copo3 from'../../public/copos/copo-3.png'
 
 import {ShoppingCart} from'lucide-react'
 
