@@ -5,6 +5,7 @@ import { stripe } from '@/lib/stripe'
 import Stripe from 'stripe'
 import Link from 'next/link'
 
+
 interface ProductsProps {
   id: string;
   name: string;
@@ -14,6 +15,7 @@ interface ProductsProps {
 }
 
 export default async function Home() {
+  
   const response = await stripe.products.list({
     expand:['data.default_price']
   })
@@ -34,6 +36,7 @@ export default async function Home() {
     cor:product.metadata.cor,
     price: formattedPrice
   };
+
   })
   
 
@@ -61,4 +64,5 @@ export default async function Home() {
       
   )
 }
+
 
