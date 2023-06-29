@@ -1,61 +1,66 @@
 import Image from'next/image'
-import copo1 from'../../public/copos/copo-1.png'
-import copo2 from'../../public/copos/copo-2.png'
-import copo3 from'../../public/copos/copo-3.png'
 
 import {ShoppingCart} from'lucide-react'
+import { stripe } from '@/lib/stripe'
+import Stripe from 'stripe'
 
-export default function Home() {
+interface ProductsProps {
+  id: string;
+  name: string;
+  imageUrl: string;
+  cor:string ;
+  price: string;
+}
+
+export default async function Home() {
+  const response = await stripe.products.list({
+    expand:['data.default_price']
+  })
+  const products:ProductsProps[] = response.data.map(product =>{
+    const price = product.default_price as Stripe.Price;
+    let formattedPrice = '';
+    if (price && price.unit_amount) {
+      formattedPrice = new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+      }).format(price.unit_amount / 100);
+    }
+
+    return{
+    id: product.id, 
+    name: product.name, 
+    imageUrl: product.images[0] ,
+    cor:product.metadata.cor,
+    price: formattedPrice
+  };
+  })
+  
+
   return (
     <main className='grid grid-cols-3 gap-[2rem] max-w-[1180px] m-auto mt-[3rem]'>
-      <div className='flex-col justify-center shadow-sm'>
-        <Image className='w-full object-cover bg-gradient-to-r from-indigo-500 to-green-400 rounded-t-md h-[300px]' src={copo1} alt=''/>
+      {products.map((product)=>{
+      return(
+      <div key={product.id} className='flex-col justify-center shadow-sm'>
+        <Image className='w-full object-cover bg-gradient-to-r from-indigo-500 to-green-400 rounded-t-md h-[300px]' src={product.imageUrl} width={450} height={450} alt=''/>
         <footer className='flex-col justify-center bg-gray-800 text-center font-sans rounded-md'>
-          <h1 className='text-[2rem]'>Copo Térmico Stanley</h1>
+          <h1 className='text-[2rem]'>{product.name}</h1>
           <span>473ml</span>
-          <p className='text-[1.5rem]'>Branco</p>
-          <span className='block text-[1.5rem] text-green-400'>R$ 70,00</span>
+          <p className='text-[1.5rem]'>{product.cor}</p>
+          <span className='block text-[1.5rem] text-green-400'>{product.price}</span>
           <button className='bg-blue-900 h-[3.5rem] w-[15rem]  mx-auto mt-[0.5rem] mb-[1rem]  rounded-md border-0 font-bold text-[1.5rem] hover:bg-blue-950 transition-colors duration-300 '>
             COMPRAR
             <ShoppingCart size={24} className='inline align-middle ml-[10px] mb-[5px]'/>
             </button>
         </footer>
       </div>
-      <div className='flex-col justify-center shadow-sm'>
-        <Image className='w-full object-cover bg-gradient-to-r from-indigo-500 to-green-400 rounded-t-md h-[300px]' src={copo2} alt=''/>
-        <footer className='flex-col justify-center bg-gray-800 text-center font-sans rounded-md'>
-          <h1 className='text-[2rem]'>Copo Térmico Stanley</h1>
-          <span>473ml</span>
-          <p className='text-[1.5rem]'>Branco</p>
-          <span className='block text-[1.5rem] text-green-400'>R$ 70,00</span>
-          <button className='bg-blue-900 h-[3.5rem] w-[15rem]  mx-auto mt-[0.5rem] mb-[1rem]  rounded-md border-0 font-bold text-[1.5rem] hover:bg-blue-950 transition-colors duration-300 '>
-            COMPRAR
-            <ShoppingCart size={24} className='inline align-middle ml-[10px] mb-[5px]'/>
-            </button>
-        </footer>
-      </div>
-      <div className='flex-col justify-center shadow-sm'>
-        <Image className='w-full object-cover bg-gradient-to-r from-indigo-500 to-green-400 rounded-t-md h-[300px]' src={copo3} alt=''/>
-        <footer className='flex-col justify-center bg-gray-800 text-center font-sans rounded-md'>
-          <h1 className='text-[2rem]'>Copo Térmico Stanley</h1>
-          <span>473ml</span>
-          <p className='text-[1.5rem]'>Branco</p>
-          <span className='block text-[1.5rem] text-green-400'>R$ 70,00</span>
-          <button className='bg-blue-900 h-[3.5rem] w-[15rem]  mx-auto mt-[0.5rem] mb-[1rem]  rounded-md border-0 font-bold text-[1.5rem] hover:bg-blue-950 transition-colors duration-300 '>
-            COMPRAR
-            <ShoppingCart size={24} className='inline align-middle ml-[10px] mb-[5px]'/>
-            </button>
-        </footer>
-      </div>
+
+        )
+      })}
       
-      
-      
-      
-      
-      
+
     </main>
-      
       
       
   )
 }
+
