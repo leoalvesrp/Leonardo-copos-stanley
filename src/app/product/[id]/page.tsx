@@ -3,6 +3,7 @@ import Image from "next/image";
 import copo1 from'../../../../public/copos/copo-1.png'
 import { stripe } from "@/lib/stripe";
 import Stripe from "stripe";
+import { ButtonBuy } from "@/componentes/ButtonBuy";
 
 interface ProductProps{
   params:{
@@ -32,7 +33,8 @@ export default async function Product({params}:ProductProps) {
     price: formattedPrice,
     image: product.images[0],
     cor:product.metadata.cor,
-    description: product.description
+    description: product.description,
+    priceId: productId
 
   }   
 
@@ -49,10 +51,9 @@ export default async function Product({params}:ProductProps) {
           </p>
           <p className='text-[2.5rem]'>{productFinal.cor}</p>
           <span className="block text-[1.2rem]">473ml</span>
-          <button className='bg-blue-900 h-[4.5rem] w-[25rem]  mx-auto mt-[1rem] mb-[1rem]  rounded-md border-0 font-bold text-[1.5rem] hover:bg-blue-950 transition-colors duration-300 '>
-            ADICIONAR AO CARRINHO
-            <ShoppingCart size={24} className='inline align-middle ml-[10px] mb-[5px]'/>
-            </button>
+          <ButtonBuy
+          productFinal = {productFinal}
+          />
         </aside>
       </main>
   )
