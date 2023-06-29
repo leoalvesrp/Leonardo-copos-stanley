@@ -1,12 +1,18 @@
 import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
-import copo1 from'../../../public/copos/copo-1.png'
+import copo1 from'../../../../public/copos/copo-1.png'
 
-export default function Product() {
+interface ProductProps{
+  params:{
+    id:string,
+  }
+}
+
+export default function Product({params}:ProductProps) {
   return (
     <main className='grid grid-cols-2 gap-[2rem] max-w-[1000px] m-auto mt-[3rem]'>
       <div className='flex justify-center shadow-sm max-w-full gap-[5rem]'>
-        <Image className='object-cover bg-gradient-to-r from-indigo-500 to-green-400 rounded-t-md w-full' src={copo1} alt=''/>
+        <Image className='object-cover bg-gradient-to-r from-indigo-500 to-green-400 rounded-md w-full' src={copo1} alt=''/>
       </div>
         <aside className='flex-col justify-center bg-gray-800 text-center font-sans rounded-md'>
           <h1 className='text-[2rem]'>Copo Térmico Stanley</h1>
