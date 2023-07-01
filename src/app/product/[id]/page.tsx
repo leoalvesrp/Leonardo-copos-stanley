@@ -50,10 +50,11 @@ export default async function Product({params}:ProductProps) {
             {productFinal.description}
           </p>
           <p className='text-[2.5rem]'>{productFinal.cor}</p>
-          <span className="block text-[1.2rem]">473ml</span>
-          <ButtonBuy
-            productFinal = {productFinal}
+          <span className="text-[1.2rem]">473ml</span>
+        <ButtonBuy
+          productFinal = {productFinal}
           />
+          
         </aside>
       </main>
   )

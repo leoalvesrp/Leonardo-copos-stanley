@@ -14,15 +14,16 @@ export function ButtonBuy({productFinal}:ButtonProps){
         priceId: productFinal.priceId,
       },
       )
-      console.log(data)
+      window.location.assign(data)
     } catch (err) {
       alert('Falha ao redirecionar ao checkout!')
     }
   }
   return(
-    <button onClick={handleBuyButton} className='bg-blue-900 h-[4.5rem] w-[25rem]  mx-auto mt-[1rem] mb-[1rem]  rounded-md border-0 font-bold text-[1.5rem] hover:bg-blue-950 transition-colors duration-300 '>
-          ADICIONAR AO CARRINHO
-        <ShoppingCart size={24} className='inline ml-[10px] mb-[5px]'/>
-    </button>
+      <button onClick={handleBuyButton}  className='bg-blue-900 flex justify-center items-center gap-[0.3rem] w-[25rem] h-[4rem] m-auto mt-[1.5rem] mb-[2rem]  rounded-md font-bold text-[1.5rem] text-center hover:bg-blue-950 transition-colors duration-300 '>
+        ADICIONAR AO CARRINHO
+        <ShoppingCart size={24} className='ml-[10px] mb-[5px]'/>
+      </button>
+
   )
 }
