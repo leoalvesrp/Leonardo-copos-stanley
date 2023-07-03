@@ -59,9 +59,8 @@ export default async function Product({ params }: ProductProps) {
         </p>
         <p className="text-[2.5rem]">{productFinal.cor}</p>
         <span className="text-[1.2rem]">473ml</span>
-        <div className='bg-blue-900 flex justify-center items-center gap-[0.3rem] w-[25rem] h-[4rem] m-auto mt-[1.5rem] mb-[2rem]  rounded-md font-bold text-[1.5rem] text-center  hover:bg-blue-950 transition-colors duration-300 disabled:cursor-not-allowed'>
-        <ButtonBuy
-        productFinal={productFinal} />
+        <div className="bg-blue-900 flex justify-center items-center gap-[0.3rem] w-[25rem] h-[4rem] m-auto mt-[1.5rem] mb-[2rem]  rounded-md font-bold text-[1.5rem] text-center  hover:bg-blue-950 transition-colors duration-300 disabled:cursor-not-allowed">
+          <ButtonBuy productFinal={productFinal} />
         </div>
       </aside>
     </main>
