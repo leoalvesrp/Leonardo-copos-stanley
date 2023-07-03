@@ -3,6 +3,7 @@ import { ShoppingCart } from 'lucide-react';
 import { stripe } from '@/lib/stripe';
 import Stripe from 'stripe';
 import Link from 'next/link';
+import axios from 'axios';
 
 interface ProductsProps {
   id: string;

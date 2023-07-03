@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
 
 export async function POST(req: NextRequest) {
-  let data = await req.json();
-  let priceId = data.priceId;
+  const data = await req.json();
+  const priceId = data.priceId;
 
   try {
     const session = await stripe.checkout.sessions.create({
@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
         },
       ],
       mode: 'payment',
-      success_url: 'http://localhost:3000',
+      success_url: 'http://localhost:3000/success/{CHECKOUT_SESSION_ID}',
       cancel_url: 'http://localhost:3000',
     });
     return NextResponse.json(session.url);
